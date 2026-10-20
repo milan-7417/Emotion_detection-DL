@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10121a">
+  <meta name="description" content="Moodline uses an emotion classification model to explore the feeling expressed in your words.">
+  <title>Moodline — Emotion Intelligence</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/script.js" defer></script>
+</head>
+
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Moodline home">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 15.5 8.2 11l3.2 3 7.6-8"
+              stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14.5 6H19v4.5"
+              stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="brand-name">moodline<span>.</span></span>
+      </a>
+
+      <div class="topbar-right">
+        <span class="product-label">AI EMOTION ANALYSIS</span>
+        <span class="status-pill" aria-live="polite">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusPillText">Connecting</span>
+        </span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="eyebrow-line"></span>
+            UNDERSTAND THE FEELING BEHIND THE WORDS
+          </p>
+
+          <h1>Words carry feelings.<br>
+            <span>Let’s find yours.</span>
+          </h1>
+
+          <p class="hero-description">
+            Explore the emotion in a sentence with an AI-powered
+            text classifier. Write naturally, then see the model’s
+            prediction and confidence breakdown.
+          </p>
+        </div>
+
+        <div class="hero-badge" aria-label="Six emotion categories">
+          <div class="badge-orbit orbit-a"></div>
+          <div class="badge-orbit orbit-b"></div>
+          <div class="badge-center">✳</div>
+          <span class="badge-caption">TEXT<br>INSIGHTS</span>
+        </div>
+      </section>
+
+      <section class="workspace" aria-labelledby="inputHeading">
+        <div class="workspace-heading">
+          <div>
+            <span class="section-index">01 / INPUT</span>
+            <h2 id="inputHeading">What’s on your mind?</h2>
+          </div>
+
+          <span class="privacy-note">
+            <span class="privacy-icon">◈</span>
+            Your words, analyzed
+          </span>
+        </div>
+
+        <div class="input-card">
+          <label class="sr-only" for="textInput">
+            Enter a sentence to analyze
+          </label>
+
+          <textarea
+            id="textInput"
+            maxlength="2000"
+            placeholder="Type a sentence here…&#10;“I can’t believe we actually pulled this off.”"
+            spellcheck="true"
+          ></textarea>
+
+          <div class="input-card-footer">
+            <div class="input-meta">
+              <span class="character-count">
+                <strong id="charCount">0</strong> / 2,000 characters
+              </span>
+
+              <span class="keyboard-hint">
+                <kbd>Ctrl</kbd><span>+</span><kbd>Enter</kbd> to analyze
+              </span>
+            </div>
+
+            <button id="analyzeBtn" class="btn-primary" type="button" disabled>
+              <span class="btn-label">Analyze emotion</span>
+              <span class="btn-icon" aria-hidden="true">↗</span>
+            </button>
+          </div>
+
+          <p class="error-msg" id="errorMsg" role="alert" hidden></p>
+        </div>
+
+        <div class="examples">
+          <span class="examples-label">NEED A START?</span>
+
+          <button type="button" class="example-chip"
+            data-example="I’m so grateful to have people who care about me.">
+            Gratitude
+          </button>
+
+          <button type="button" class="example-chip"
+            data-example="I can’t stop worrying about what happens next.">
+            Worry
+          </button>
+
+          <button type="button" class="example-chip"
+            data-example="After all that hard work, we finally did it!">
+            A big win
+          </button>
+        </div>
+      </section>
+
+      <section class="result-section" id="resultSection" hidden aria-live="polite">
+        <div class="workspace-heading result-heading">
+          <div>
+            <span class="section-index">02 / RESULTS</span>
+            <h2>Your emotion snapshot</h2>
+          </div>
+
+          <span class="result-tag">
+            <span class="result-tag-dot"></span>
+            ANALYSIS COMPLETE
+          </span>
+        </div>
+
+        <div class="results-grid">
+          <article class="result-card primary-result">
+            <div class="card-topline">
+              <span class="card-label">PREDICTED EMOTION</span>
+              <span class="sparkle" aria-hidden="true">✳</span>
+            </div>
+
+            <div class="emotion-display">
+              <div class="emotion-symbol" id="emotionEmoji">😄</div>
+
+              <div>
+                <h3 id="emotionWord">Joy</h3>
+                <p class="emotion-subtitle" id="emotionSubtitle">
+                  The strongest signal in your text
+                </p>
+              </div>
+            </div>
+
+            <div class="confidence-block">
+              <div class="confidence-row">
+                <span>Model confidence</span>
+                <strong id="confidenceText">92.4%</strong>
+              </div>
+
+              <div class="confidence-track">
+                <span id="confidenceFill"></span>
+              </div>
+            </div>
+
+            <div class="quote-block">
+              <span class="quote-mark">“</span>
+              <blockquote id="echoedText"></blockquote>
+            </div>
+          </article>
+
+          <article class="result-card breakdown-card">
+            <div class="card-topline">
+              <div>
+                <span class="card-label">PROBABILITY BREAKDOWN</span>
+                <h3 class="breakdown-title">What the model picked up</h3>
+              </div>
+
+              <span class="mini-chart-icon" aria-hidden="true">▥</span>
+            </div>
+
+            <p class="breakdown-description">
+              Scores across the emotion categories for this sentence.
+            </p>
+
+            <div class="bars" id="barsContainer"></div>
+
+            <p class="disclaimer">
+              Predictions are model estimates, not a definitive reading
+              of someone’s feelings.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-brand">
+        <span class="footer-mark">m.</span>
+        <span>MOODLINE <span class="footer-muted">· EMOTION INTELLIGENCE</span></span>
+      </div>
+
+      <span class="footer-status">
+        <span class="status-dot" id="footerStatusDot"></span>
+        <span id="serverStatusText">Connecting to model…</span>
+      </span>
+
+      <span class="footer-note">Built to explore, not to define.</span>
+    </footer>
+  </div>
+</body>
+</html>
