@@ -15,7 +15,7 @@
 ## 🏠 Home Page
 
 <p align="center">
-  <img src="snaps/home%282%29.png" alt="Moodline Home Page" width="85%">
+  <img src="snaps/home (2).png" alt="Moodline Home Page" width="85%">
 </p>
 
 ## 🎯 Emotion Prediction
